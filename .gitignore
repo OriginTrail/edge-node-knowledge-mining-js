@@ -1,0 +1,14 @@
+node_modules
+storage/assets
+storage/datasets
+.env
+.idea
+.DS_Store
+
+uploads/*
+uploads/.gitignore
+uploads/.keep
+
+src/logs/*
+src/logs/.gitignore
+src/logs/.keep
