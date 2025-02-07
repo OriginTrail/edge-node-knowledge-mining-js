@@ -65,6 +65,94 @@ The project requires environment variables to be set. Use the provided `.env.exa
 
 2. The service will start on the configured port (default: `5005`).
 
+## API Routes
+
+### 1. **Trigger Pipeline**
+   **POST** `/trigger-pipeline`
+
+   This endpoint triggers a knowledge mining pipeline with a file upload.
+
+   **Request:**
+   - **Headers:**
+     - `Authorization`: Bearer token for authentication.
+   - **Body (form-data):**
+     - `pipelineId` (string, required): The ID of the pipeline to trigger. ID is the filename of the file where the pipeline is defined (simple_json_to_jsonld, pdf_to_jsonld...).
+     - `fileFormat` (string, optional): Format of the uploaded file (json, csv...).
+     - `file` (file, required): File to be processed.
+
+   **Example cURL:**
+   ```bash
+   curl -X POST http://localhost:5005/trigger-pipeline \
+     -H "Authorization: Bearer <your_token>" \
+     -F "pipelineId=12345" \
+     -F "fileFormat=pdf" \
+     -F "file=@example.pdf"
+   ```
+
+   **Response:**
+   - **Success (200):**
+     ```json
+     {
+       "pipelineId": "12345",
+       "runId": "jobId123",
+       "message": "Pipeline triggered successfully",
+       "success": true
+     }
+     ```
+   - **Error (400):**
+     ```json
+     { "error": "Missing pipelineId" }
+     ```
+     ```json
+     { "error": "No selected file" }
+     ```
+   - **Error (500):**
+     ```json
+     { "error": "Failed to trigger pipeline" }
+     ```
+
+---
+
+### 2. **Check Pipeline Status**
+   **GET** `/check-pipeline-status`
+
+   This endpoint retrieves the status of a specific pipeline run.
+
+   **Request:**
+   - **Headers:**
+     - `Authorization`: Bearer token for authentication.
+   - **Query Parameters:**
+     - `pipelineId` (string, required): The ID of the pipeline.
+     - `runId` (string, required): The ID of the specific run to check.
+
+   **Example cURL:**
+   ```bash
+   curl -X GET "http://localhost:5005/check-pipeline-status?pipelineId=12345&runId=jobId123" \
+     -H "Authorization: Bearer <your_token>"
+   ```
+
+   **Response:**
+   - **Success (200):**
+     ```json
+     {
+       "id": "jobId123",
+       "status": "completed",
+       "ka": <knowledge_asset_object>
+     }
+     ```
+   - **Error (400):**
+     ```json
+     { "error": "Missing pipelineId or runId" }
+     ```
+   - **Error (404):**
+     ```json
+     { "error": "Pipeline not found" }
+     ```
+   - **Error (500):**
+     ```json
+     { "error": "Failed to fetch pipeline status" }
+     ```
+
 ## Dependencies
 
 The project uses the following dependencies:
