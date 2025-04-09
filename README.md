@@ -31,7 +31,7 @@ Ensure you have the following installed on your system:
    npm install
    ```
 
-3. Make sure Redis is running on its default port (6379).
+3. Make sure Redis is running as configured in .env (default: 127.0.0.1:6379)
 
 ## Configuration
 
