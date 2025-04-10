@@ -40,7 +40,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/", pipelineRoutes);
+app.use(process.env.ROUTES_PREFIX || "/", pipelineRoutes);
 
 const server = app.listen(port, () => {
   console.log(`Edge Node knowledge mining running on port ${port}`);
