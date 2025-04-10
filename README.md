@@ -169,3 +169,11 @@ The project uses the following dependencies:
 - [OpenAI](https://www.npmjs.com/package/openai): OpenAI API client
 - [Unstructured Client](https://www.npmjs.com/package/unstructured-client): Client for interacting with the Unstructured API
 
+## OpenTelemetry
+
+This service comes with OpenTelemetry support pre-installed. To enable it, set `OTEL_ENABLED=true` in .env variables.
+
+OpenTelemetry is implemented using [@opentelemetry/auto-instrumentations-node](https://www.npmjs.com/package/@opentelemetry/auto-instrumentations-node) package, and can be further configured using env variables.
+- Configuration: https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/
+- Set up exporters: https://opentelemetry.io/docs/specs/otel/protocol/exporter/
+- Exporters + dashboard docker setup: https://hub.docker.com/r/grafana/otel-lgtm 
