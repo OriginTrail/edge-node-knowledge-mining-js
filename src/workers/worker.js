@@ -2,6 +2,7 @@ require("dotenv").config();
 const fs = require("fs");
 const path = require("path");
 const { Worker } = require("bullmq");
+const { BullMQOtel } = require("bullmq-otel");
 const { connection } = require("../queues/queue");
 const Logger = require("../services/logger");
 
@@ -84,6 +85,7 @@ const kaMiningWorker = new Worker(
   {
     connection,
     concurrency,
+    telemetry: new BullMQOtel("knowledge-mining"),
   }
 );
 
