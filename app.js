@@ -1,4 +1,7 @@
 require("dotenv").config();
+if (process.env.OTEL_ENABLED?.toLowerCase() === "true") {
+  require("@opentelemetry/auto-instrumentations-node/register");
+}
 require("./src/queues/queue.js");
 require("./src/workers/worker.js");
 
