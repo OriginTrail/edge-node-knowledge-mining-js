@@ -3,6 +3,11 @@ const { BullMQOtel } = require("bullmq-otel");
 const redis = require("ioredis");
 
 const connection = new redis({
+  port: process.env.REDIS_PORT,
+  host: process.env.REDIS_HOST,
+  username: process.env.REDIS_USERNAME,
+  password: process.env.REDIS_PASSWORD,
+  db: process.env.REDIS_DB,
   maxRetriesPerRequest: null,
 });
 
